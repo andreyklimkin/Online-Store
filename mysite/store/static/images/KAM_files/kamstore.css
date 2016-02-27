@@ -1,0 +1,52 @@
+.store_name {
+	font-family:Lobster;
+	font-size:18px;
+	font-weight: 700;
+}
+
+.menu_link {
+	font-family:latin-ext;
+	font-size:16px;
+}
+
+.carousel-caption{
+	font-family:Lobster;
+}
+
+#carousel {
+	margin-top:50px !important;
+}
+
+.gender_type {
+	height:250px;
+	margin-top:20px;
+	width:90%;
+}
+
+.gender {
+	height:100%;
+}
+
+.gender img {
+	height:85%;
+	width:100%;
+	border-color:#C0C0C0;
+    border-width: 6px;
+    background:rgba(97, 97, 97, 0.9);
+    border-style:solid;
+    margin-right:0px;
+    box-shadow:6px -5px 6px #A0A0A0; 
+}
+
+.gender div{
+	margin:auto;
+	width:100% !important;
+	text-align:center;
+	height:10%;
+	padding-top:5px;
+	font-family:Georgia;
+	font-size:18px;
+}
+.gender img:hover {
+	border-color:#4172B2;
+}

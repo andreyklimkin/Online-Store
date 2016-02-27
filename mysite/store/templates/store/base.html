@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
+    {# <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">#}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>KAM</title>
+  </head>
+  <body>  
+
+  <div class="container menu">  
+    <div class="row">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#resp-menu">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <a class="navbar-brand" href="http://127.0.0.1:8000"><span class="store_name">KAM STORE</span></a>
+          <div class="collapse navbar-collapse" id="resp-menu">
+            <ul class="nav navbar-nav menu_link navbar-right">
+              <li class="active"><a href="http://127.0.0.1:8000"> Home </a></li>
+              <li><a href="http://127.0.0.1:8000/Men"> Men </a></li>
+              <li><a href="http://127.0.0.1:8000/Women"> Lady </a></li>
+              <li><a href="http://127.0.0.1:8000/Collections"> Collections </a></li>
+              <!--<li><a href="#"> Sales </a></li>-->
+              <form class="navbar-form pull-right">
+              <input type="text" class="form-control pull-left" placeholder="Search for..."/>
+              </form>
+              <li>
+               <a href="http://127.0.0.1:8000/Cart"><i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse"></i><br></a>
+              </li>
+            </ul> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .nav-default {
+      min-width: 970px !important;
+    }
+  </style>
+
+  {% block content %}
+  {% endblock %}
+  </body>
+</html>

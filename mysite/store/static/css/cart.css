@@ -1,0 +1,116 @@
+.store_name {
+	font-family:Lobster;
+	font-size:18px;
+	font-weight: 700;
+}
+
+.head {
+    font-family:TeXGyreHeros_bold, Arial, Verdana;
+    font-size:28px;
+    color:#333333;
+    margin-top:120px;
+    margin-left:10%;
+    font-weight:500;
+    border:0;
+}
+
+body {
+    min-width:970px;
+}
+
+.table {
+    width:80% !important;
+    margin:auto;
+    margin-top:80px;
+
+}
+
+thead th {
+    color:black;
+    font-family:TeXGyreHeros_bold, Arial, Verdana;
+    font-size:16px;
+    color:#333333;
+}
+
+.first, .second, .third, .forth, .fifth {
+    text-align:center;
+}
+
+.first {
+    width:25%;
+}
+
+.second {
+    width:35%;
+}
+
+.third, .fifth {
+    width:15%;
+}
+
+.forth {
+    width:10%;
+}
+
+tbody tr {
+    height:240px;
+    border-width:0px;
+    border-style:solid;
+    border-color:#ddd;
+    border-bottom-width:2px;
+}
+
+tbody th {
+    height:240px;
+}
+
+.item-img div {
+    height:100%;
+}
+
+.item-img img {
+    height:100%;
+}
+
+.mod {
+    margin-top:60px;
+}
+
+.item-mod div {
+    padding-top:20px;
+    padding-right:10px;
+    text-align:left;
+    vertical-align:middle;
+}
+
+.mod rmv {
+    display:inline-block;
+    margin-bottom:20px;
+}
+
+.rmv {
+    color:red;
+    cursor:pointer;
+    text-decoration:underline;
+}
+
+.item-price, .item-numb, .item-total {
+    padding-top:80px !important;
+    font-size:18px;
+    color:#666;
+    font-family:Archivo Narrow, sans-serif
+}
+
+.item-mod {
+    padding:0 !important;
+}
+
+.item-numb {
+    padding-top:74px !important;
+}
+
+.item-total {
+    font-size:20px;
+    font-weight:700;
+    color:#222;
+}
