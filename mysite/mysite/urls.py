@@ -16,15 +16,17 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+import social.apps.django_app.urls
 
 urlpatterns = [
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
+    url('', include(social.apps.django_app.urls, namespace='social')),
 
     url(r'', include('store.urls')),
-    url(r'^Men', include('store.urls')),
-    url(r'^Women', include('store.urls')),
-    url(r'^Collections', include('store.urls')),
+    #url(r'^Men', include('store.urls')),
+    #url(r'^Women', include('store.urls')),
+    #url(r'^Collections', include('store.urls')),
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^basicview/', include('blog.urls')),
 ]

@@ -18,19 +18,19 @@
   </head>
   <body>  
 
-  <div class="container menu">  
+  <div class="container menu">
     <div class="row">
       <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid cont">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#resp-menu">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#resp-menu" aria-expanded="false">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="http://127.0.0.1:8000"><span class="store_name">KAM STORE</span></a>
           </div>
-          <a class="navbar-brand" href="http://127.0.0.1:8000"><span class="store_name">KAM STORE</span></a>
           <div class="collapse navbar-collapse" id="resp-menu">
             <ul class="nav navbar-nav menu_link navbar-right">
               <li class="active"><a href="http://127.0.0.1:8000"> Home </a></li>
@@ -38,12 +38,12 @@
               <li><a href="http://127.0.0.1:8000/Women"> Lady </a></li>
               <li><a href="http://127.0.0.1:8000/Collections"> Collections </a></li>
               <!--<li><a href="#"> Sales </a></li>-->
-              <form class="navbar-form pull-right">
-              <input type="text" class="form-control pull-left" placeholder="Search for..."/>
-              </form>
               <li>
                <a href="http://127.0.0.1:8000/Cart"><i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse"></i><br></a>
               </li>
+              <form class="navbar-form pull-right">
+              <input type="text" class="form-control pull-left" placeholder="Search for..."/>
+              </form>
             </ul> 
           </div>
         </div>
@@ -51,9 +51,53 @@
     </div>
   </div>
 
+  <!--
+  <div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><span>Строительный магазин</span><br><br></a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active">
+            <a href="/"> Главная<br></a>
+          </li>
+          <li class="">
+            <a href="/catalog">Каталог<br></a>
+          </li>
+          <li>
+            <a href="/sales">Акции<br></a>
+          </li>
+          <li>
+            <a href="/contact">Контакты<br></a>
+          </li>
+          <li>
+            <a href="/cart/">
+            <i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse">
+            </i>
+         <br></a>
+</li>
+
+<li><a href="#"><i class="fa fa-fw glyphicon glyphicon-search text-inverse"></i></a></li>
+</ul>
+</div>
+</div>
+
+  -->
+
   <style>
     .nav-default {
       min-width: 970px !important;
+    }
+    .cont {
+      padding-left:30px !important;
+      padding-right:30px !important;
     }
   </style>
 

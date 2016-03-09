@@ -32,6 +32,11 @@ TEMPLATE_DIRS = {
     '/home/andreyklimkin/djangoTutorial/mysite/templates',
 }
 
+AUTHENTICATION_BACKENDS = (
+    'social.backends.vk.VKOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -42,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',
+    'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (

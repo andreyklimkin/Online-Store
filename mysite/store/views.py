@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
+from __future__ import (absolute_import, division,
+                        print_function, unicode_literals)
 from django.shortcuts import render
 from .models import Watches_Main
 from .models import Watches_Men
 from .models import Watches_Women
 from .models import Collection_Model
+from django.http import HttpResponse
 import random
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+
 
 
 def post_list(request):
@@ -37,3 +43,25 @@ def cart(request):
 
 def add(request):
     return HttpResponse("Added")
+
+def home(request):
+    if request.user.is_authenticated():
+        return HttpResponse("{0} <a href='/accounts/logout'>exit</a>".format(request.user))
+    else:
+        return HttpResponse("<a href='/login/vk-oauth2/'>login with VK</a>")
+
+
+@login_required
+def account_profile(request):
+    """
+    Show user greetings. ONly for logged in users.
+    """
+    return HttpResponse("Hi, {0}! Nice to meet you.".format(request.user.first_name))
+
+
+def account_logout(request):
+    """
+    Logout and redirect to the main page.
+    """
+    logout(request)
+    return redirect('http://127.0.0.1:8000') 
