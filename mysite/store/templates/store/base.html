@@ -34,9 +34,14 @@
           <div class="collapse navbar-collapse" id="resp-menu">
             <ul class="nav navbar-nav menu_link navbar-right">
               <li class="active"><a href="http://127.0.0.1:8000"> Home </a></li>
-              <li><a href="http://127.0.0.1:8000/Men"> Men </a></li>
+              <li><a href="/Men"> Men </a></li>
               <li><a href="http://127.0.0.1:8000/Women"> Lady </a></li>
               <li><a href="http://127.0.0.1:8000/Collections"> Collections </a></li>
+                {% if username %}
+                    <li><a href="http://localhost:8000/accounts/logout"> Exit {{username}} </a></li>
+                {% else %}
+                    <li><a href="http://localhost:8000/register"> Log In </a></li>
+                {% endif %}
               <!--<li><a href="#"> Sales </a></li>-->
               <li>
                <a href="http://127.0.0.1:8000/Cart"><i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse"></i><br></a>
@@ -51,46 +56,6 @@
     </div>
   </div>
 
-  <!--
-  <div class="navbar navbar-default navbar-fixed-top navbar-inverse">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/"><span>Строительный магазин</span><br><br></a>
-      </div>
-      <div class="collapse navbar-collapse" id="navbar-ex-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active">
-            <a href="/"> Главная<br></a>
-          </li>
-          <li class="">
-            <a href="/catalog">Каталог<br></a>
-          </li>
-          <li>
-            <a href="/sales">Акции<br></a>
-          </li>
-          <li>
-            <a href="/contact">Контакты<br></a>
-          </li>
-          <li>
-            <a href="/cart/">
-            <i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse">
-            </i>
-         <br></a>
-</li>
-
-<li><a href="#"><i class="fa fa-fw glyphicon glyphicon-search text-inverse"></i></a></li>
-</ul>
-</div>
-</div>
-
-  -->
-
   <style>
     .nav-default {
       min-width: 970px !important;
@@ -99,6 +64,18 @@
       padding-left:30px !important;
       padding-right:30px !important;
     }
+    body {
+        min-width:780px;
+      }
+
+    .store_name {
+	    font-family:Lobster;
+	    font-size:18px;
+	    font-weight: 700;
+    }
+
+
+
   </style>
 
   {% block content %}
