@@ -59,21 +59,20 @@ def home(request):
 def checkin(request):
     return render(request, 'store/checkin.html', {});
 
-
-
 @login_required
 def account_profile(request):
+    if request.user.is_authenticated():
+        args = {}
+        args['name'] = format(request.user.first_name)
+        args['surname'] = format(request.user.last_name)
+        args['email'] = format(request.user.email)
+        user = request.user
+        return render(request, 'store/profile.html', {'args':args, 'username':args['name'], 'user':user});
+    else:
+        return render(request, 'store/checkin.html')
     """
     Show user greetings. ONly for logged in users.
     """
-    args = {}
-    args['name'] = format(request.user.first_name)
-    args['surname'] = format(request.user.last_name)
-    args['email'] = format(request.user.email)
-    user = request.user
-    #resp = HttpResponse('https://api.vk.com/method/'status_get'?'''user.id'''&access_token='''
-
-    return render(request, 'store/profile.html', {'args':args, 'username':args['name'], 'user':user});
     #return HttpResponse("Hi, {0}! Nice to meet you.".format(request.user.first_name))
 
 
@@ -82,7 +81,7 @@ def account_logout(request):
     Logout and redirect to the main page.
     """
     logout(request)
-    return redirect('http://localhost:8000') 
+    return redirect('/') 
 
 @csrf_exempt
 def paypal_success(request):
