@@ -29,22 +29,22 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://127.0.0.1:8000"><span class="store_name">KAM STORE</span></a>
+            <a class="navbar-brand" href="/"><span class="store_name">KAM STORE</span></a>
           </div>
           <div class="collapse navbar-collapse" id="resp-menu">
             <ul class="nav navbar-nav menu_link navbar-right">
-              <li class="active"><a href="http://127.0.0.1:8000"> Home </a></li>
+              <li class="active"><a href="/"> Home </a></li>
               <li><a href="/Men"> Men </a></li>
-              <li><a href="http://127.0.0.1:8000/Women"> Lady </a></li>
-              <li><a href="http://127.0.0.1:8000/Collections"> Collections </a></li>
+              <li><a href="/Women"> Lady </a></li>
+              <li><a href="/Collections"> Collections </a></li>
                 {% if username %}
-                    <li><a href="http://localhost:8000/accounts/logout"> Exit {{username}} </a></li>
+                    <li><a href="/accounts/logout"> Exit {{username}} </a></li>
                 {% else %}
-                    <li><a href="http://localhost:8000/register"> Log In </a></li>
+                    <li><a href="/register"> Log In </a></li>
                 {% endif %}
               <!--<li><a href="#"> Sales </a></li>-->
               <li>
-               <a href="http://127.0.0.1:8000/Cart"><i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse"></i><br></a>
+               <a href="/Cart"><i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse"></i><br></a>
               </li>
               <form class="navbar-form pull-right">
               <input type="text" class="form-control pull-left" placeholder="Search for..."/>
