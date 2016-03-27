@@ -1,0 +1,73 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+<html lang="en">
+  <head>
+  </head>
+  <body>
+  {% block content %}
+  <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <div class="head">
+        YOUR SHOPPING CART
+    </div>
+    <div class="table-responsive">
+        <table id="cart-table" class="table">
+            <thead>
+                <tr>
+                    <th class="first">
+                        Item
+                    </th>
+
+                    <th class="second">
+
+                    </th>
+
+                    <th class="third">
+                        Price
+                    </th>
+
+                    <th class="forth">
+                        Quantity
+                    </th>
+
+                    <th class="fifth">
+                        Total
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <th class="first item-img">
+                        <div>
+                            <img src="{% static "images/De_Villa4.png" %}" alt="">
+                        </div>
+                    </th>
+
+                    <th class="second item-mod">
+                        <div class="mod">TOURBILLON CO-AXIAL LIMITED EDITION</div>
+                        <a href="#"><div class="rmv"> Remove</div> </a>
+                    </th>
+
+                    <th class="third item-price">
+                        $850.00
+                    </th>
+
+                    <th class="forth item-numb">
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </th>
+
+                    <th class="fifth item-total">
+                        $850.00
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+  {% endblock content %}
+  </body>
+</html>

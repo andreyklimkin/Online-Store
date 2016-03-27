@@ -1,0 +1,49 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    {# <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">#}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>MEN</title>
+  </head>
+  <body>
+  {% block content %}
+  <link rel="stylesheet" href="{% static 'css/men-women.css' %}">
+  <link rel="stylesheet" href="{% static 'css/women.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+    <div class="Zenith">
+        <div class="background-wrapper">
+            <span class="WH"> LADIES </span>
+            <img src="{% static "images/women_back.jpg" %}" alt="">
+        </div>
+
+        <div class="container-fluid LIST">
+            <div class="row"> {% for watch in watches %}
+                <div class="col-md-4 col-lg-3 col-sm-4 col-xs-4 watches">
+                    <p><img src="{{ watch.image.url }}"></p>
+                    <div class="watches-name">
+                        <span class="firm">{{ watch.firm }}</span>
+                        <span class="model">{{ watch.model }}</span>
+                        <div class="span6" style="text-align:center">
+                            <button class="btn btn-success btn-md add" id="item{{ watch.model }}">
+                                Add to cart
+                            </button>
+                        </div>
+                    </div>
+                </div>{% endfor %} </div>
+            </div>
+        </div>
+    </div>
+  {% endblock content %}
+  </body>
+</html>

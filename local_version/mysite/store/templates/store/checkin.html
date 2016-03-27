@@ -1,0 +1,149 @@
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
+    {# <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">#}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+     <link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" class="cssdeck">
+
+
+<style>
+    #loginModal {
+        margin:auto;
+    }
+</style>
+
+
+<script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
+
+
+
+<div class="col-lg-6" id="loginModal">
+	<div class="modal-body">
+		<div class="well">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+				<li><a href="#create" data-toggle="tab">Create Account</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane active in" id="login">
+					<form class="form-horizontal" action='' method="POST">
+						<fieldset>
+							<div id="legend">
+								<legend class="">Login</legend>
+							</div>
+							<div class="control-group">
+								<!-- Username -->
+								<label class="control-label"  for="username">Username</label>
+								<div class="controls">
+									<input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<!-- Password-->
+								<label class="control-label" for="password">Password</label>
+								<div class="controls">
+									<input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+								</div>
+							</div>
+
+
+							<div class="control-group">
+								<!-- Button -->
+								<!--<div id="login_button" onclick="VK.Auth.login(authInfo);"></div> -->
+								<div class="controls">
+									<button class="btn btn-success CHECK" >Login</button>
+									<!--<div id="login_button" onclick="VK.Auth.login(authInfo);">
+										class="btn-vk"><i class="fa fa-vk"></i>
+									</div> -->
+									
+									<a id="vk" onclick="VK.Auth.login(authInfo);"
+										class="btn-vk"><i class="fa fa-vk"></i> | Log in with VK
+                                    </a> 
+
+
+                                    <!--<a id="vk" href="/login/vk-oauth2/"
+                                        class="btn-vk"><i class="fa fa-vk"></i> | Log in with VK
+                                    </a> -->
+                                    <style>
+                                        a#vk {
+                                            color:white;
+                                            display:inline-block;
+                                            width:auto;
+                                            cursor:pointer;
+                                            height:30px;
+                                            text-decoration:none;
+                                        }
+                                    </style>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<div class="tab-pane fade" id="create">
+					<form id="tab">
+						<label>Username</label>
+						<input type="text" value="" class="input-xlarge">
+						<label>First Name</label>
+						<input type="text" value="" class="input-xlarge">
+						<label>Last Name</label>
+						<input type="text" value="" class="input-xlarge">
+						<label>Email</label>
+						<input type="text" value="" class="input-xlarge">
+						<label>Address</label>
+						<textarea value="Smith" rows="3" class="input-xlarge">
+						</textarea>
+
+						<div>
+							<button class="btn btn-primary ">Create Account</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="http://oauth.vk.com/authorize?client_id=5378322&redirect_uri=http://andreyklimkin.pythonanywhere.com&response_type=code" title="Зайти через ВКонтакте">Зайти через ВКонтакте</a>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+  <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+
+  <script language="javascript">
+	VK.init({
+  	apiId: 5343626
+	});
+	fl = 0;
+	function authInfo(response) {
+  		if (response.session) {
+  			document.location.href = "/accounts/profile";
+    		//alert('user: '+response.session.mid);
+    		//alert(fl)
+    		/*if(fl == 0) {
+    			fl = 1;
+    			location.href = '/accounts/profile';
+    		}*/
+  		} else {
+    		alert('not auth');
+  		}
+	}
+	VK.Auth.getLoginStatus(authInfo);
+	//VK.UI.button('');
+</script>
+
+  </body>
+</html>
