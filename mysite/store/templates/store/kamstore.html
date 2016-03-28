@@ -113,7 +113,7 @@
 
     <div class="container-fluid Trends">
       <div class="row"> {% for watch in watches %}
-          <div class="col-md-6 col-lg-3 col-sm-6 col-xs-6 watches">
+          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 watches">
             <p><img src="{{ watch.image.url }}"></p>
             <div class="watches-name"> {{ watch.model }} </div>
             <!--<h2>{{ watch.model }}</h2> -->
@@ -121,6 +121,7 @@
 
         </div>
     </div>
+
 
    {% endblock content %}
   </body>

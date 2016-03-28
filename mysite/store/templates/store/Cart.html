@@ -5,6 +5,7 @@
   </head>
   <body>
   {% block content %}
+  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/cart.css' %}">
     <div class="head">
         YOUR SHOPPING CART
@@ -36,7 +37,7 @@
             </thead>
 
             <tbody>
-                <tr>
+                <tr id="CO-AXIAL">
                     <th class="first item-img">
                         <div>
                             <img src="{% static "images/De_Villa4.png" %}" alt="">
@@ -48,12 +49,12 @@
                         <a href="#"><div class="rmv"> Remove</div> </a>
                     </th>
 
-                    <th class="third item-price">
+                    <th class="third item-price opt" id="CO-AXIAL_PRICE" >
                         $850.00
                     </th>
 
                     <th class="forth item-numb">
-                        <select class="form-control">
+                        <select class="form-control" price-id="CO-AXIAL_PRICE" total-id ="CO-AXIAL_TOTAL">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -61,7 +62,7 @@
                         </select>
                     </th>
 
-                    <th class="fifth item-total">
+                    <th class="fifth item-total" id="CO-AXIAL_TOTAL">
                         $850.00
                     </th>
                 </tr>

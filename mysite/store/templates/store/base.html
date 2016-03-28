@@ -33,17 +33,17 @@
           </div>
           <div class="collapse navbar-collapse" id="resp-menu">
             <ul class="nav navbar-nav menu_link navbar-right">
-              <li class="active"><a href="/"> Home </a></li>
-              <li><a href="/Men"> Men </a></li>
-              <li><a href="/Women"> Lady </a></li>
-              <li><a href="/Collections"> Collections </a></li>
+              <li class="{{active.home}}"><a href="/"> Home </a></li>
+              <li class="{{active.men}}"><a href="/Men"> Men </a></li>
+              <li class="{{active.women}}"><a href="/Women"> Lady </a></li>
+              <li class="{{active.collections}}"><a href="/Collections"> Collections </a></li>
                 {% if username %}
                     <li><a href="/accounts/logout"> Exit {{username}} </a></li>
                 {% else %}
                     <li><a href="/register"> Log In </a></li>
                 {% endif %}
               <!--<li><a href="#"> Sales </a></li>-->
-              <li>
+              <li class="{{active.cart}}">
                <a href="/Cart"><i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse"></i><br></a>
               </li>
               <form class="navbar-form pull-right">
@@ -57,6 +57,11 @@
   </div>
 
   <style>
+
+    .menu_link {
+      font-family:latin-ext;
+      font-size:16px;
+    }
     .nav-default {
       min-width: 970px !important;
     }

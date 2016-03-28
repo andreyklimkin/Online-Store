@@ -16,4 +16,18 @@ $(document).ready(function(){
             }
         });
     });
+
+    $("select").click(function() {
+    	var n = $(this).val()
+    	price_id = $(this).attr('price-id')
+    	total_id = $(this).attr('total-id')
+    	price_elem = document.getElementById(price_id)
+    	total_elem = document.getElementById(total_id)
+    	cost = $(price_elem).text().trim().substring(1)
+    	var total = parseFloat(cost) * n;
+    	total = total.toFixed(2)
+    	total_str = "$" + total.toString()
+    	$(total_elem).text(total_str)
+	})
+
   });

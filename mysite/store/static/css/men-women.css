@@ -43,7 +43,7 @@ body {
 }
 
 .watches img {
-    height:70%;
+    height:60%;
     width:90%;
 }
 
@@ -63,7 +63,7 @@ body {
 }
 
 .model {
-    margin-top:5px;
+    margin-top:10px;
     font-family:TeXGyreHeros, Arial, Verdana;
     display: inline-block;
     width:70%;
@@ -73,7 +73,8 @@ body {
 }
 
 .btn {
-    margin-top:10px;
+    margin-top:0px;
+    margin-bottom:20px;
     font-family:TeXGyreHeros, Arial, Verdana;
 }
 

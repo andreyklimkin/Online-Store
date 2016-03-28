@@ -20,32 +20,57 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import auth
 
 # Create your views here.
-def main_page(request):
+
+name = ""
+def Get_name(request):
+    global name;
     if request.user.is_authenticated():
         name = format(request.user.first_name)
-
     else:
         name = ""
+
+active = {}
+
+def make_active(act):
+    global active
+    active["home"] = "noactive"
+    active["men"] = "noactive"
+    active["women"] = "noactive"
+    active["collections"] = "noactive"
+    active["cart"] = "noactive"
+    active[act] = "active"
+
+def main_page(request):
+    make_active("home")
+    Get_name(request);
     #watches = Watches_Main.objects.all()
     watches = Watches_Main.objects.all().order_by('?')[:4]
-    return render(request, 'store/kamstore.html', {'watches':watches, 'username':name})
+    return render(request, 'store/kamstore.html', {'active':active, 'watches':watches, 'username':name})
 
 def men_page(request):
+    make_active("men")
+    Get_name(request);
     watches = Watches_Men.objects.all().order_by('?')
-    return render(request, 'store/Men.html', {'watches':watches})
+    return render(request, 'store/Men.html', {'active':active, 'watches':watches, 'username':name})
 
 def women_page(request):
+    make_active("women")
+    Get_name(request);
     watches = Watches_Women.objects.all().order_by('?')
-    return render(request, 'store/Women.html', {'watches':watches})
+    return render(request, 'store/Women.html', {'active':active, 'watches':watches, 'username':name})
 
 def collections_page(request):
+    make_active("collections")
+    Get_name(request);
     watches = Collection_Model.objects.all()
     omegas = watches[0:4]
     zeniths = watches[4:]
-    return render(request, 'store/Collections.html', {'omegas':omegas, 'zeniths':zeniths })
+    return render(request, 'store/Collections.html', {'active':active, 'omegas':omegas, 'zeniths':zeniths, 'username':name })
 
 def cart(request):
-    return render(request, 'store/Cart.html', {})
+    make_active("cart")
+    Get_name(request);
+    return render(request, 'store/Cart.html', {'username':name, 'active':active})
 
 def add(request):
     return HttpResponse("Added")
@@ -95,13 +120,13 @@ def paypal_success(request):
 def paypal_pay(request):
     paypal_dict = {
         "business": "andreyklimkin@yandex.ru",
-        "amount": "00.00",
+        "amount": "100.00",
         "currency_code": "RUB",
         "item_name": "products in watches store",
         "invoice": "INV-00001",
         "notify_url": reverse('paypal-ipn'),
-        "return_url": "http://localhost:8000/payment/success/",
-        "cancel_return": "http://localhost:8000/cart/",
+        "return_url": "success/",
+        "cancel_return": "/cart/",
         "custom": str(request.user.id)
     }
 
