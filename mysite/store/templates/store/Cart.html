@@ -37,7 +37,38 @@
             </thead>
 
             <tbody>
-                <tr id="CO-AXIAL">
+                {% for item in cart_items %}
+                    <tr id="{{item.item}}">
+                        <th class="first item-img">
+                            <div>
+                                <img src={{item.item.image.url}} alt="">
+                            </div>
+                        </th>
+
+                        <th class="second item-mod">
+                            <div class="mod">{{item.item}}</div>
+                            <div class="rmv" rmv_id="{{item.item}}"> Remove</div>
+                        </th>
+
+                        <th class="third item-price opt" id="{{item.item}}_PRICE" >
+                            ${{item.item.prize}}
+                        </th>
+
+                        <th class="forth item-numb">
+                            <select class="form-control" price-id="{{item.item}}_PRICE" total-id ="{{item.item}}_TOTAL">
+                                <option onclick="Show()">1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </th>
+
+                        <th class="fifth item-total" id="{{item.item}}_TOTAL">
+                            ${{item.item.prize}}
+                        </th>
+                    </tr>
+                {% endfor %}
+                <!--<tr id="CO-AXIAL">
                     <th class="first item-img">
                         <div>
                             <img src="{% static "images/De_Villa4.png" %}" alt="">
@@ -55,7 +86,7 @@
 
                     <th class="forth item-numb">
                         <select class="form-control" price-id="CO-AXIAL_PRICE" total-id ="CO-AXIAL_TOTAL">
-                            <option>1</option>
+                            <option onclick="Show()">1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
@@ -65,7 +96,7 @@
                     <th class="fifth item-total" id="CO-AXIAL_TOTAL">
                         $850.00
                     </th>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
       </div>

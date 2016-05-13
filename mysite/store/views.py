@@ -2,10 +2,12 @@
 from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
 from django.shortcuts import render
-from .models import Watches_Main
-from .models import Watches_Men
-from .models import Watches_Women
 from .models import Collection_Model
+from .models import Watches
+from .models import Brands
+from .models import Collections
+from .models import Carts
+from .models import Cart_Items
 from django.http import HttpResponse
 import random
 from django.contrib.auth import logout
@@ -29,6 +31,7 @@ def Get_name(request):
     else:
         name = ""
 
+
 active = {}
 
 def make_active(act):
@@ -44,36 +47,90 @@ def main_page(request):
     make_active("home")
     Get_name(request);
     #watches = Watches_Main.objects.all()
-    watches = Watches_Main.objects.all().order_by('?')[:4]
+    watches = Watches.objects.all().order_by('-rating')[:4]
     return render(request, 'store/kamstore.html', {'active':active, 'watches':watches, 'username':name})
 
 def men_page(request):
     make_active("men")
     Get_name(request);
-    watches = Watches_Men.objects.all().order_by('?')
+    watches = Watches.objects.filter(gender="M").order_by('-rating')[:8]
+    #watches = {}
     return render(request, 'store/Men.html', {'active':active, 'watches':watches, 'username':name})
 
 def women_page(request):
     make_active("women")
     Get_name(request);
-    watches = Watches_Women.objects.all().order_by('?')
+    watches = Watches.objects.filter(gender="F").order_by('-rating')[:8]
     return render(request, 'store/Women.html', {'active':active, 'watches':watches, 'username':name})
 
 def collections_page(request):
     make_active("collections")
     Get_name(request);
-    watches = Collection_Model.objects.all()
-    omegas = watches[0:4]
-    zeniths = watches[4:]
-    return render(request, 'store/Collections.html', {'active':active, 'omegas':omegas, 'zeniths':zeniths, 'username':name })
+    brands = Brands.objects.all()
+    collections = Collections.objects.all()
+    watches = Watches.objects.all()
+    allbrands = brands
+    allcollections = collections
+    return render(request, 'store/Collections.html', {'active':active, 'brands':brands, 'collections': collections, \
+                                                       'watches':watches, 'username':name, 'allbrands':allbrands, 'allcollections': allcollections})
 
 def cart(request):
     make_active("cart")
     Get_name(request);
-    return render(request, 'store/Cart.html', {'username':name, 'active':active})
+    if request.user.is_authenticated():
+        user=request.user
+        user_cart=Carts.objects.get(user_name=user)
+        cart_items=Cart_Items.objects.filter(cart=user_cart)
+        return render(request, 'store/Cart.html', {'username':name, 'active':active, 'cart_items':cart_items})
+    else:
+        return redirect('/register');
 
 def add(request):
-    return HttpResponse("Added")
+    #JSONdata = request.POST['data']
+    #dict = simplejson.JSONDecoder().decode( JSONdata )
+    if request.user.is_authenticated():
+        item_name = request.GET['item']
+        item = Watches.objects.get(model=item_name)
+        user=request.user
+        user_cart=Carts.objects.get(user_name=user)
+        cnt = Cart_Items.objects.filter(cart=user_cart, item=item).count()
+        if(cnt > 0):
+            return HttpResponse("IsIn");
+        else:
+            new = Cart_Items(cart=user_cart, item=item)
+            new.save()
+        return HttpResponse("Added")
+    else:
+        return HttpResponse("NR");
+
+def delete(request):
+    #JSONdata = request.POST['data']
+    #dict = simplejson.JSONDecoder().decode( JSONdata )
+    #return HttpResponse("Deleted")
+    if request.user.is_authenticated():
+        item_name = request.GET['item']
+        item = Watches.objects.get(model=item_name)
+        user=request.user
+        user_cart=Carts.objects.get(user_name=user)
+        Cart_Items.objects.filter(cart=user_cart, item=item).delete()
+        cart_items=Cart_Items.objects.filter(cart=user_cart)
+        #return render(request, 'store/Cart.html', {'username':name, 'active':active, 'cart_items':cart_items})
+        return HttpResponse("OK")
+    else:
+        return render(request, 'store/checkin.html', {});
+
+def order_collections(request):
+    brand=request.GET['brand']
+    collection=request.GET['collection']
+    make_active("collections")
+    Get_name(request)
+    brands = Brands.objects.filter(name=brand)
+    collections = Collections.objects.filter(name=collection)
+    watches = Watches.objects.all()
+    allcollections = Collections.objects.filter()
+    allbrands = Brands.objects.all()
+    return render(request, 'store/Collections.html', {'active':active, 'brands':brands, 'collections': collections, \
+                                                       'watches':watches, 'username':name, 'allbrands':allbrands, 'allcollections': allcollections})
 
 def home(request):
     if request.user.is_authenticated():
@@ -86,15 +143,12 @@ def checkin(request):
 
 @login_required
 def account_profile(request):
-    if request.user.is_authenticated():
-        args = {}
-        args['name'] = format(request.user.first_name)
-        args['surname'] = format(request.user.last_name)
-        args['email'] = format(request.user.email)
-        user = request.user
-        return render(request, 'store/profile.html', {'args':args, 'username':args['name'], 'user':user});
-    else:
-        return render(request, 'store/checkin.html')
+    args = {}
+    args['name'] = format(request.user.first_name)
+    args['surname'] = format(request.user.last_name)
+    args['email'] = format(request.user.email)
+    user = request.user
+    return render(request, 'store/profile.html', {'args':args, 'username':args['name'], 'user':user});
     """
     Show user greetings. ONly for logged in users.
     """

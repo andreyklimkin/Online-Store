@@ -29,9 +29,7 @@
 
 <script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
 
-
-
-<div class="col-lg-6" id="loginModal">
+	<div class="col-lg-6 " id="loginModal">
 	<div class="modal-body">
 		<div class="well">
 			<ul class="nav nav-tabs">
@@ -71,14 +69,14 @@
 										class="btn-vk"><i class="fa fa-vk"></i>
 									</div> -->
 									
-									<a id="vk" onclick="VK.Auth.login(authInfo);"
+									<!--<a id="vk" onclick="VK.Auth.login(authInfo);"
 										class="btn-vk"><i class="fa fa-vk"></i> | Log in with VK
-                                    </a> 
-
-
-                                    <!--<a id="vk" href="/login/vk-oauth2/"
-                                        class="btn-vk"><i class="fa fa-vk"></i> | Log in with VK
                                     </a> -->
+
+
+                                    <a id="vk" href="/login/vk-oauth2/"
+                                        class="btn-vk"><i class="fa fa-vk"></i> | Log in with VK
+                                    </a>
                                     <style>
                                         a#vk {
                                             color:white;
@@ -117,8 +115,6 @@
 		</div>
 	</div>
 
-	<a href="http://oauth.vk.com/authorize?client_id=5378322&redirect_uri=http://andreyklimkin.pythonanywhere.com&response_type=code" title="Зайти через ВКонтакте">Зайти через ВКонтакте</a>
-
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
   <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
@@ -141,9 +137,20 @@
     		alert('not auth');
   		}
 	}
-	VK.Auth.getLoginStatus(authInfo);
+	//VK.Auth.getLoginStatus(authInfo);
 	//VK.UI.button('');
 </script>
+
+<style>
+	.modal-body{
+		max-height:10000px;
+	}
+
+	#loginModal {
+		display: block; 
+		margin: auto;
+	}
+</style>
 
   </body>
 </html>

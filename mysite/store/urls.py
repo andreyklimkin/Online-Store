@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^$', views.main_page, name='main_page'),
     #url(r'^admin/', include(admin.site.urls)),
     url(r'^add-to-cart/$', views.add, name='add'),
+    url(r'^delete_from_cart/$', views.delete, name='delete'),
+    url(r'^order_collections/$', views.order_collections, name='order-collections'),
     url('', include(social.apps.django_app.urls, namespace='social')),
     url(r'^Cart/$', views.cart, name='cart'),
     url(r'^accounts/logout/$', views.account_logout, name='logout'),

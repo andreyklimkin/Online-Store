@@ -43,6 +43,36 @@ body {
     padding:0;
 }
 
+.name_filter {
+    padding-right:20px;
+    line-height:34px;
+    font-size:18px;
+    font-weight:700px;
+    font-family:latin-ext;
+    opacity:0.8;
+}
+
+select {
+   font-family:latin-ext; 
+}
+
+.filter {
+    margin-top:50px;
+    margin-right:20px;
+    float:right;
+    padding:20px 40px 20px 40px;
+    border-style:solid;
+    border-color:#f1f2f3 !important;
+    background-color:rgb(253, 253, 253);
+    border-width:1px 1px 1px 1px;
+}
+
+
+
+.filter div{
+    display:inline-block;
+}
+
 .producer {
     margin:auto;
     text-align:center;
@@ -52,7 +82,7 @@ body {
     color:#444444;
     font-family:TeXGyreHeros_bold, Arial, Verdana;
     margin-bottom:30px;
-    margin-top:70px;
+    margin-top:50px;
     font-size:32px;
     font-weight:900;
 }
@@ -67,10 +97,22 @@ body {
 
 .watches {
     border-top-width: 0px !important;
+    padding-top:10px;
+}
+
+
+.watches img {
+    height:60%;
+    /*width:85%; */
+}
+
+.btn {
+    margin-bottom:20px;
 }
 
 .row {
     border-style:solid;
+    margin:0;
    border-color:#f1f2f3 !important;
    border-width:1px 0px 0px 0px !important;
 }

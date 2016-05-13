@@ -25,6 +25,7 @@ SECRET_KEY = 'hctz76k8tyd3c@dh!@+-$a-f1!1!rf*z9obf!_qw-3-1a=x75u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -129,7 +130,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-_PATH = os.path.abspath(os.path.dirname(__file__))
+_PATH = os.path.abspath(os.path.dirname(__file__) + "/.." + "/store")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

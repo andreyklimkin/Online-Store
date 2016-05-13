@@ -29,7 +29,63 @@
     </div>
 
     <div class="container-fluid Main">
+        <div class="row">
+            <div class="filter">
+                <div class="name_filter"> filter by collection </div>
+                <div class="filter-form">
+                    <select class="form-control">
+                    <option value=""></option>
+                        {% for brand in allbrands %}
+                            {% for collection in allcollections %}
+                                {% if collection.brand == brand %}
+                                    <option value="{{brand}} : {{collection}}">{{brand}} : {{collection}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="producer">
+            {% for brand in brands %}
+            <h2 class="producer_name">
+                    {{ brand.name }}
+            </h2>
+                {% for collection in collections %}
+                    {% if collection.brand == brand %}
+                        <div class="collection">
+
+                            <h3 class="collection_name">
+                                {{collection.name}}
+                            </h3>
+
+                            <div class="row">
+                                {% for watch in watches %}
+                                    {% if watch.collection == collection %}
+                                        <div class="col-md-3 col-lg-3 col-sm-4 col-xs-4 watches">
+                                            <p><img src="{{ watch.image.url }}"></p>
+                                                <div class="watches-name">
+                                                    <span class="firm">{{ watch.firm }}</span>
+                                                    <span class="model">{{ watch.model }}</span>
+                                                    <div class="span6" style="text-align:center">
+                                                        <button class="btn btn-success btn-md add" id="{{ watch }}">
+                                                            Add to cart
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                         </div>
+                     {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+        <!-- <div class="producer">
             <h2 class="producer_name">
                     OMEGA
             </h2>
@@ -39,7 +95,7 @@
                 </h3>
 
                 <div class="row"> {% for omega in omegas %}
-                    <div class="col-md-4 col-lg-3 col-sm-4 col-xs-4 watches">
+                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-4 watches">
                         <p><img src="{{ omega.image.url }}"></p>
                         <div class="watches-name">
                             <span class="firm">{{ omega.firm }}</span>
@@ -53,8 +109,6 @@
                     </div>{% endfor %}
                 </div>
             </div>
-
-
         </div>
 
         <div class="producer">
@@ -83,9 +137,8 @@
             </div>
 
 
-        </div>
+        </div> -->
 
-    </div>
   {% endblock content %}
   </body>
 </html>
