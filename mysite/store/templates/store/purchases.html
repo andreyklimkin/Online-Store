@@ -1,0 +1,94 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    {# <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">#}
+    <link rel="stylesheet" href="{% static 'css/kamstore.css' %}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>KAM</title>
+  </head>
+  <body>  
+  {% block content %}
+    <link rel="stylesheet" href="{% static 'css/men-women.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/purchases.css' %}">
+    <link rel="stylesheet" href="{% static 'css/collections.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+      <div class="container" style="padding-top: 60px;">
+    <h1 class="page-header">
+        <span class="act"><a href="/accounts/purchases">Purchased watches</a></span> 
+        <span class="noact"> <a href="/accounts/profile">Profile</a></span>
+    </h1>   
+    </div>
+
+    <div class="head">
+        Watches that you've purchased
+    </div>
+
+    <div class="table-responsive">
+        <table id="cart-table" class="table">
+            <thead>
+                <tr>
+                    <th class="first">
+                        Item
+                    </th>
+
+                    <th class="second">
+
+                    </th>
+
+                    <th class="third">
+                        Collection
+                    </th>
+
+                    <th class="forth">
+                        Purchased date
+                    </th>
+
+                    <th class="fifth">
+                        Price
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in watches %}
+                    <tr class="goods_tr">
+                        <th class="first item-img goods_th">
+                            <div>
+                                <img src={{item.item.image.url}} alt="">
+                            </div>
+                        </th>
+
+                        <th class="second item-mod goods_th">
+                            <div class="mod">{{item.item}}</div>
+                        </th>
+
+                        <th class="third item-price opt goods_th">
+                            {{item.item.collection}}
+                        </th>
+
+                        <th class="forth item-numb goods_th">
+                            {{item.date}}
+                        </th>
+
+                        <th class="fifth item-total goods_th">
+                            ${{item.item.prize}}
+                        </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+  {% endblock content %}
+
+  </body>
+</html>

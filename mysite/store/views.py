@@ -8,6 +8,7 @@ from .models import Brands
 from .models import Collections
 from .models import Carts
 from .models import Cart_Items
+from .models import Purchases
 from django.http import HttpResponse
 import random
 from django.contrib.auth import logout
@@ -20,6 +21,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.urlresolvers import reverse
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import auth
+from django.db.models import Q
+import datetime
 
 # Create your views here.
 
@@ -34,12 +37,15 @@ def Get_name(request):
 
 active = {}
 
+purchase_dict = {}
+
 def make_active(act):
     global active
     active["home"] = "noactive"
     active["men"] = "noactive"
     active["women"] = "noactive"
     active["collections"] = "noactive"
+    active["profile"] = "noactive"
     active["cart"] = "noactive"
     active[act] = "active"
 
@@ -141,14 +147,48 @@ def home(request):
 def checkin(request):
     return render(request, 'store/checkin.html', {});
 
+def search(request):
+    search_str = request.GET['str'].lower()
+
+    make_active("")
+    Get_name(request);
+    watches = []
+    for s in search_str.split():
+        watches += Watches.objects.filter(Q(model__contains=s)| Q(collection__name__contains=s) | Q(collection__brand__name__contains=s))
+    #watches2 = Watches.objects.filter(collection__contains=s)
+    #watches1.update(watches2)
+    #watches = {}
+    return render(request, 'store/search.html', {'active':active, 'watches':watches, 'username':name})
+
 @login_required
 def account_profile(request):
+    make_active("profile")
+    user=request.user
+    if(Carts.objects.filter(user_name=user).count() == 0):
+        new = Carts(user_name=user)
+        new.save()
     args = {}
     args['name'] = format(request.user.first_name)
     args['surname'] = format(request.user.last_name)
     args['email'] = format(request.user.email)
     user = request.user
-    return render(request, 'store/profile.html', {'args':args, 'username':args['name'], 'user':user});
+    return render(request, 'store/profile.html', {'args':args, 'active':active, 'username':args['name'], 'user':user});
+    """
+    Show user greetings. ONly for logged in users.
+    """
+    #return HttpResponse("Hi, {0}! Nice to meet you.".format(request.user.first_name))
+
+
+@login_required
+def account_purchases(request):
+    user=request.user
+    args = {}
+    args['name'] = format(request.user.first_name)
+    args['surname'] = format(request.user.last_name)
+    args['email'] = format(request.user.email)
+    make_active("profile")
+    purchases=Purchases.objects.filter(user_name=user)
+    return render(request, 'store/purchases.html', {'args':args, 'active':active, 'username':args['name'], 'user':user, 'watches':purchases})
     """
     Show user greetings. ONly for logged in users.
     """
@@ -162,29 +202,85 @@ def account_logout(request):
     logout(request)
     return redirect('/') 
 
-@csrf_exempt
-def paypal_success(request):
-    """
-    Tell user we got the payment.
-    """
-    return HttpResponse("Money is mine. Thanks.")
-
 
 @login_required
 def paypal_pay(request):
+    global purchase_dict
+    total_price = request.GET['total_price']
+    user=request.user
+    strs = request.GET['item_price'].split("$")
+    #f = open('test.txt', 'w')
+        #print(strs, file=g)
+    purchase_dict[user] = {}
+    for i in range(0, len(strs) - 1, 2):
+        purchase_dict[user][strs[i]] = float(strs[i + 1])
+    #for s in purchases[user]:
+        #f.write(str(purchases[user]))
+    user_cart=Carts.objects.get(user_name=user)
+    cart_items=Cart_Items.objects.filter(cart=user_cart)
+    purchases = ""
+    for a in cart_items:
+        purchases += str(a.item.model) + "\n";
     paypal_dict = {
-        "business": "andreyklimkin@yandex.ru",
-        "amount": "100.00",
-        "currency_code": "RUB",
-        "item_name": "products in watches store",
+        "business": request.user.email,
+        "amount": total_price,
+        "currency_code": "USD",
+        "item_name": purchases,
         "invoice": "INV-00001",
         "notify_url": reverse('paypal-ipn'),
         "return_url": "success/",
         "cancel_return": "/cart/",
-        "custom": str(request.user.id)
+        "custom": str(request.user)
     }
-
     # Create the instance.
     form = PayPalPaymentsForm(initial=paypal_dict)
     context = {"form": form, "paypal_dict": paypal_dict}
+    #sreturn HttpResponse(purchases)
     return render(request, "store/payment.html", context)
+
+@login_required
+def test(request):
+    user = request.user
+    user_cart=Carts.objects.get(user_name=user)
+    cart_items=Cart_Items.objects.filter(cart=user_cart)
+    for it in cart_items:
+        #Cart_Items.objects.filter(cart=user_cart, item=it.item).delete()
+        if(Purchases.objects.filter(user_name=user, item=it.item).count() == 0):
+            new = Purchases(user_name=user, item=it.item)
+            new.save()
+    for it in cart_items:
+        Cart_Items.objects.filter(cart=user_cart, item=it.item).delete()
+    #purchases=Purchases.objects.filter(user_name=user)
+    #new = Carts(user_name=user)
+    #new.save()
+
+    """
+    Tell user we got the payment.
+    """
+    thanks = "Thank you for the purchase"
+    return redirect('/accounts/purchases')
+    #return redirect('/accounts/profile')
+    #return render(request, 'store/profile.html', {'user':user, 'active':active, 'mess':thanks})
+    #return render(request, 'store/purchases.html', {'user':user, 'active':active, 'watches':purchases})
+
+@csrf_exempt
+def paypal_success(request):
+    user = request.user
+    user_cart=Carts.objects.get(user_name=user)
+    cart_items=Cart_Items.objects.filter(cart=user_cart)
+    for it in cart_items:
+        #Cart_Items.objects.filter(cart=user_cart, item=it.item).delete()
+        if(Purchases.objects.filter(user_name=user, item=it.item).count() == 0):
+            new = Purchases(user_name=user, item=it.item)
+            new.save()
+    for it in cart_items:
+        Cart_Items.objects.filter(cart=user_cart, item=it.item).delete()
+    #purchases=Purchases.objects.filter(user_name=user)
+    #new = Carts(user_name=user)
+    #new.save()
+
+    """
+    Tell user we got the payment.
+    """
+    thanks = "Thank you for the purchase"
+    return redirect('/accounts/purchases')

@@ -5,7 +5,6 @@
   </head>
   <body>
   {% block content %}
-  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/cart.css' %}">
     <div class="head">
         YOUR SHOPPING CART
@@ -38,23 +37,23 @@
 
             <tbody>
                 {% for item in cart_items %}
-                    <tr id="{{item.item}}">
-                        <th class="first item-img">
+                    <tr id="{{item.item}}" class="goods_tr">
+                        <th class="first item-img goods_th">
                             <div>
                                 <img src={{item.item.image.url}} alt="">
                             </div>
                         </th>
 
-                        <th class="second item-mod">
+                        <th class="second item-mod goods_th">
                             <div class="mod">{{item.item}}</div>
                             <div class="rmv" rmv_id="{{item.item}}"> Remove</div>
                         </th>
 
-                        <th class="third item-price opt" id="{{item.item}}_PRICE" >
+                        <th class="third item-price opt goods_th" id="{{item.item}}_PRICE">
                             ${{item.item.prize}}
                         </th>
 
-                        <th class="forth item-numb">
+                        <th class="forth item-numb goods_th">
                             <select class="form-control" price-id="{{item.item}}_PRICE" total-id ="{{item.item}}_TOTAL">
                                 <option onclick="Show()">1</option>
                                 <option>2</option>
@@ -63,42 +62,47 @@
                             </select>
                         </th>
 
-                        <th class="fifth item-total" id="{{item.item}}_TOTAL">
+                        <th class="fifth item-total goods_th" id="{{item.item}}_TOTAL" tot-id={{item.item}}>
                             ${{item.item.prize}}
                         </th>
                     </tr>
                 {% endfor %}
-                <!--<tr id="CO-AXIAL">
-                    <th class="first item-img">
-                        <div>
-                            <img src="{% static "images/De_Villa4.png" %}" alt="">
-                        </div>
-                    </th>
-
-                    <th class="second item-mod">
-                        <div class="mod">TOURBILLON CO-AXIAL LIMITED EDITION</div>
-                        <a href="#"><div class="rmv"> Remove</div> </a>
-                    </th>
-
-                    <th class="third item-price opt" id="CO-AXIAL_PRICE" >
-                        $850.00
-                    </th>
-
-                    <th class="forth item-numb">
-                        <select class="form-control" price-id="CO-AXIAL_PRICE" total-id ="CO-AXIAL_TOTAL">
-                            <option onclick="Show()">1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </th>
-
-                    <th class="fifth item-total" id="CO-AXIAL_TOTAL">
-                        $850.00
-                    </th>
-                </tr> -->
             </tbody>
         </table>
+
+        <table class="total_table">
+        	<tbody>
+        		<tr class="total">
+                	<th class="first">
+                	</th>
+                	<th class="second">
+                	</th>
+                	<th class="third-forth total_name border">
+                	TOTAL COST
+                	</th>
+                	<th class="fifth total_cost border">
+                	</th>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="paypal">
+        	<tbody>
+        		<tr class="total">
+                	<th class="first">
+                	</th>
+                	<th class="second">
+                	<th class="third-forth total_name border">
+                		PAY WITH PAYPAL
+                	</th>
+
+                	<th class="paypal_img border">
+                		<img src="{% static "images/paypal.gif" %}">
+                	</th>
+                </tr>
+            </tbody>
+        </table>
+
       </div>
   {% endblock content %}
   </body>

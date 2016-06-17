@@ -13,6 +13,7 @@
     <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
     {# <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">#}
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 
     <title>KAM</title>
   </head>
@@ -38,16 +39,19 @@
               <li class="{{active.women}}"><a href="/Women"> Lady </a></li>
               <li class="{{active.collections}}"><a href="/Collections"> Collections </a></li>
                 {% if username %}
-                    <li><a href="/accounts/logout"> Exit {{username}} </a></li>
+                    <li class="{{active.profile}}"><a href="/accounts/profile"> My Profile </a></li>
                 {% else %}
                     <li><a href="/register"> Log In </a></li>
                 {% endif %}
+              <li>
+               <a href="/accounts/logout/"><i class="fa fa-fw glyphicon glyphicon-log-out pull-left text-inverse"></i><br></a>
+              </li>
               <!--<li><a href="#"> Sales </a></li>-->
               <li class="{{active.cart}}">
                <a href="/Cart"><i class="fa fa-fw glyphicon glyphicon-shopping-cart pull-left text-inverse"></i><br></a>
               </li>
-              <form class="navbar-form pull-right">
-              <input type="text" class="form-control pull-left" placeholder="Search for..."/>
+              <form id="target" class="navbar-form pull-right">
+              <input id="search" type="text" class="form-control pull-left" placeholder="Search for..."/>
               </form>
             </ul> 
           </div>

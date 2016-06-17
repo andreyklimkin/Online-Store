@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="{% static 'css/men-women.css' %}">
   <link rel="stylesheet" href="{% static 'css/collections.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
     <div class="Coll">
         <div class="background-wrapper">
             <div class="CL"> COLLECTIONS </div>
@@ -31,16 +30,12 @@
     <div class="container-fluid Main">
         <div class="row">
             <div class="filter">
-                <div class="name_filter"> filter by collection </div>
+                <div class="name_filter"> Filter by collection </div>
                 <div class="filter-form">
-                    <select class="form-control">
+                    <select class="form form-control">
                     <option value=""></option>
-                        {% for brand in allbrands %}
-                            {% for collection in allcollections %}
-                                {% if collection.brand == brand %}
-                                    <option value="{{brand}} : {{collection}}">{{brand}} : {{collection}}</option>
-                                {% endif %}
-                            {% endfor %}
+                        {% for collection in allcollections %}
+                            <option value="{{collection.brand}} : {{collection}}">{{collection.brand}} : {{collection}}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -65,15 +60,15 @@
                                     {% if watch.collection == collection %}
                                         <div class="col-md-3 col-lg-3 col-sm-4 col-xs-4 watches">
                                             <p><img src="{{ watch.image.url }}"></p>
-                                                <div class="watches-name">
-                                                    <span class="firm">{{ watch.firm }}</span>
-                                                    <span class="model">{{ watch.model }}</span>
-                                                    <div class="span6" style="text-align:center">
-                                                        <button class="btn btn-success btn-md add" id="{{ watch }}">
-                                                            Add to cart
-                                                        </button>
-                                                    </div>
+                                            <div class="watches-name">
+                                                <span class="firm">{{ watch.firm }}</span>
+                                                <span class="model">{{ watch.model }}</span>
+                                                <div class="span6" style="text-align:center">
+                                                    <button class="btn btn-success btn-md add" id="{{ watch }}">
+                                                        Add to cart
+                                                    </button>
                                                 </div>
+                                            </div>
                                         </div>
                                     {% endif %}
                                 {% endfor %}
@@ -85,60 +80,7 @@
             {% endfor %}
         </div>
     </div>
-        <!-- <div class="producer">
-            <h2 class="producer_name">
-                    OMEGA
-            </h2>
-            <div class="collection">
-                <h3 class="collection_name">
-                    DE VILLE
-                </h3>
-
-                <div class="row"> {% for omega in omegas %}
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-4 watches">
-                        <p><img src="{{ omega.image.url }}"></p>
-                        <div class="watches-name">
-                            <span class="firm">{{ omega.firm }}</span>
-                            <span class="model">{{ omega.model }}</span>
-                            <div class="span6" style="text-align:center">
-                                <button class="btn btn-success btn-md add" id="item{{ watch.model }}">
-                                    Add to cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>{% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <div class="producer">
-            <h2 class="producer_name">
-                    ZENITH
-            </h2>
-            <div class="collection">
-                <h3 class="collection_name">
-                    EL PRIMERO
-                </h3>
-
-                <div class="row"> {% for zenith in zeniths %}
-                    <div class="col-md-4 col-lg-3 col-sm-4 col-xs-4 watches">
-                        <p><img src="{{ zenith.image.url }}"></p>
-                        <div class="watches-name">
-                            <span class="firm">{{ zenith.firm }}</span>
-                            <span class="model">{{ zenith.model }}</span>
-                            <div class="span6" style="text-align:center">
-                                <button class="btn btn-success btn-md">
-                                    Add to cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>{% endfor %}
-                </div>
-            </div>
-
-
-        </div> -->
-
+    
   {% endblock content %}
   </body>
 </html>
