@@ -54,8 +54,9 @@ def main_page(request):
     make_active("home")
     Get_name(request);
     #watches = Watches_Main.objects.all()
-
-    watches = Watches.objects.all().order_by('-rating')[:4]
+    if(cache.get('best_rated')==None):
+        cache.set('best_rated', Watches.objects.all().order_by('-rating')[:4], 30)
+    watches = cache.get('best_rated')
     return render(request, 'store/kamstore.html', {'active':active, 'watches':watches, 'username':name})
 
 def men_page(request):
@@ -70,15 +71,23 @@ def men_page(request):
 def women_page(request):
     make_active("women")
     Get_name(request);
-    watches = Watches.objects.filter(gender="F").order_by('-rating')[:8]
+    if(cache.get('women')==None):
+        cache.set('women', Watches.objects.filter(gender="F").order_by('-rating')[:8], 10) 
+    watches = cache.get('women')
     return render(request, 'store/Women.html', {'active':active, 'watches':watches, 'username':name})
 
 def collections_page(request):
     make_active("collections")
     Get_name(request);
-    brands = Brands.objects.all()
-    collections = Collections.objects.all()
-    watches = Watches.objects.all()
+    if(cache.get('allbrands')==None):
+        cache.set('allbrands', Brands.objects.all())
+    if(cache.get('allcollections')==None):
+        cache.set('allcollections', Collections.objects.all(), 10)
+    if(cache.get('allwatches')==None):
+        cache.set('allwatches', Watches.objects.all(), 10)
+    brands = cache.get('allbrands')
+    collections = cache.get('allcollections')
+    watches = cache.get('allwatches')
     allbrands = brands
     allcollections = collections
     return render(request, 'store/Collections.html', {'active':active, 'brands':brands, 'collections': collections, \
@@ -89,8 +98,12 @@ def cart(request):
     Get_name(request);
     if request.user.is_authenticated():
         user=request.user
-        user_cart=Carts.objects.get(user_name=user)
-        cart_items=Cart_Items.objects.filter(cart=user_cart)
+        if(cache.get(str(user)+'cart')==None):
+            user_cart=Carts.objects.get(user_name=user)
+            cart_items=Cart_Items.objects.filter(cart=user_cart)
+            cache.set((str(user)+'cart'), cart_items, 2)
+        else:
+            cart_items=cache.get(str(user)+'cart')
         return render(request, 'store/Cart.html', {'username':name, 'active':active, 'cart_items':cart_items})
     else:
         return redirect('/register');
@@ -191,7 +204,7 @@ def account_purchases(request):
     args['surname'] = format(request.user.last_name)
     args['email'] = format(request.user.email)
     make_active("profile")
-    purchases=Purchases.objects.filter(user_name=user)
+    purchases=Purchases.objects.filter(user_name=user).order_by('-date')[:50]
     return render(request, 'store/purchases.html', {'args':args, 'active':active, 'username':args['name'], 'user':user, 'watches':purchases})
     """
     Show user greetings. ONly for logged in users.
