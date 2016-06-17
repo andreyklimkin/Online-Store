@@ -23,6 +23,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import auth
 from django.db.models import Q
 import datetime
+from django.core.cache import cache
 
 # Create your views here.
 
@@ -53,13 +54,16 @@ def main_page(request):
     make_active("home")
     Get_name(request);
     #watches = Watches_Main.objects.all()
+
     watches = Watches.objects.all().order_by('-rating')[:4]
     return render(request, 'store/kamstore.html', {'active':active, 'watches':watches, 'username':name})
 
 def men_page(request):
     make_active("men")
     Get_name(request);
-    watches = Watches.objects.filter(gender="M").order_by('-rating')[:8]
+    if(cache.get('men')==None):
+        cache.set('men', Watches.objects.filter(gender="M").order_by('-rating')[:8], 10) 
+    watches = cache.get('men')
     #watches = {}
     return render(request, 'store/Men.html', {'active':active, 'watches':watches, 'username':name})
 
