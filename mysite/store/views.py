@@ -225,12 +225,30 @@ def paypal_pay(request):
     global purchase_dict
     total_price = request.GET['total_price']
     user=request.user
-    strs = request.GET['item_price'].split("$")
-    #f = open('test.txt', 'w')
+    strs = request.GET['items_numbs'].split("$")
+    f = open('test.txt', 'w')
         #print(strs, file=g)
-    purchase_dict[user] = {}
-    for i in range(0, len(strs) - 1, 2):
-        purchase_dict[user][strs[i]] = float(strs[i + 1])
+    #purchase_dict[user] = {}
+    for i in range(0, len(strs), 2):
+        number = int(strs[i + 1])
+        name = strs[i]
+        #f.write(name + str(number))
+        next_watches = Watches.objects.get(model=name)
+        if(next_watches.number< number):
+            return HttpResponse("?" + name)
+        #s = (str(user)).encode('utf-8') + u'$' + name
+        #s += "A"
+        #helps = s.encode('utf-8')
+        #f.write(repr(helps))
+        #s = (str(user)).encode('utf-8') + u'$' + name
+        ident = next_watches.id
+        s = str(user.id) + "$" + str(ident)
+        f.write(s)
+        #return HttpResponse(ident)
+        cache.set(str(s), str(number))
+
+
+        #purchase_dict[user][strs[i]] = float(strs[i + 1])
     #for s in purchases[user]:
         #f.write(str(purchases[user]))
     user_cart=Carts.objects.get(user_name=user)
@@ -261,10 +279,17 @@ def test(request):
     user_cart=Carts.objects.get(user_name=user)
     cart_items=Cart_Items.objects.filter(cart=user_cart)
     for it in cart_items:
+        item = it.item
+        watches_str = str(user.id) + "$" + str(item.id)
+        #return HttpResponse(watches_str)
+        num = int(cache.get(watches_str))
+        cache.set(watches_str, "0")
+        item.number -= num
+        item.save()
         #Cart_Items.objects.filter(cart=user_cart, item=it.item).delete()
-        if(Purchases.objects.filter(user_name=user, item=it.item).count() == 0):
-            new = Purchases(user_name=user, item=it.item)
-            new.save()
+        total = num * item.prize
+        new = Purchases(user_name=user, item=it.item, number=num, total_prize=total)
+        new.save()
     for it in cart_items:
         Cart_Items.objects.filter(cart=user_cart, item=it.item).delete()
     #purchases=Purchases.objects.filter(user_name=user)
@@ -286,10 +311,17 @@ def paypal_success(request):
     user_cart=Carts.objects.get(user_name=user)
     cart_items=Cart_Items.objects.filter(cart=user_cart)
     for it in cart_items:
+        item = it.item
+        watches_str = str(user.id) + "$" + str(item.id)
+        #return HttpResponse(watches_str)
+        num = int(cache.get(watches_str))
+        cache.set(watches_str, "0")
+        item.number -= num
+        item.save()
         #Cart_Items.objects.filter(cart=user_cart, item=it.item).delete()
-        if(Purchases.objects.filter(user_name=user, item=it.item).count() == 0):
-            new = Purchases(user_name=user, item=it.item)
-            new.save()
+        total = num * item.prize
+        new = Purchases(user_name=user, item=it.item, number=num, total_prize=total)
+        new.save()
     for it in cart_items:
         Cart_Items.objects.filter(cart=user_cart, item=it.item).delete()
     #purchases=Purchases.objects.filter(user_name=user)
@@ -301,3 +333,6 @@ def paypal_success(request):
     """
     thanks = "Thank you for the purchase"
     return redirect('/accounts/purchases')
+    #return redirect('/accounts/profile')
+    #return render(request, 'store/profile.html', {'user':user, 'active':active, 'mess':thanks})
+    #return render(request, 'store/purchases.html', {'user':user, 'active':active, 'watches':purchases})

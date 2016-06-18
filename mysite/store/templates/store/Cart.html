@@ -25,6 +25,10 @@
                         Price
                     </th>
 
+                    <th class="six">
+                        Доступно
+                    </th>
+
                     <th class="forth">
                         Quantity
                     </th>
@@ -53,8 +57,12 @@
                             ${{item.item.prize}}
                         </th>
 
+                        <th class="six goods_th available">
+                            {{item.item.number}}
+                        </th>
+
                         <th class="forth item-numb goods_th">
-                            <select class="form-control" price-id="{{item.item}}_PRICE" total-id ="{{item.item}}_TOTAL">
+                            <select class="select-numb form-control" price-id="{{item.item}}_PRICE" total-id ="{{item.item}}_TOTAL" name-id="{{item.item}}">
                                 <option onclick="Show()">1</option>
                                 <option>2</option>
                                 <option>3</option>

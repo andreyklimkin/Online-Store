@@ -47,15 +47,19 @@
                     </th>
 
                     <th class="third">
-                        Collection
-                    </th>
-
-                    <th class="forth">
                         Purchased date
                     </th>
 
+                    <th class="forth">
+                        Item prize
+                    </th>
+
                     <th class="fifth">
-                        Price
+                        Quantity
+                    </th>
+
+                    <th class="six">
+                        Total price
                     </th>
                 </tr>
             </thead>
@@ -73,16 +77,20 @@
                             <div class="mod">{{item.item}}</div>
                         </th>
 
-                        <th class="third item-price opt goods_th">
-                            {{item.item.collection}}
-                        </th>
-
-                        <th class="forth item-numb goods_th">
+                        <th class="third date goods_th">
                             {{item.date}}
                         </th>
 
-                        <th class="fifth item-total goods_th">
+                        <th class="forth item-prize goods_th">
                             ${{item.item.prize}}
+                        </th>
+
+                        <th class="fifth item-numb goods_th">
+                            {{item.number}} 
+                        </th>
+
+                        <th class="six item-total goods_th">
+                            ${{item.total_prize}}
                         </th>
                     </tr>
                 {% endfor %}

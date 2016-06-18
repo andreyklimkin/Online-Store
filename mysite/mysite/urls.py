@@ -17,7 +17,6 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import social.apps.django_app.urls
-import views
 
 urlpatterns = [
     # Examples:

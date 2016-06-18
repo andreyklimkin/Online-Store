@@ -1,36 +1,54 @@
-.item-price, .item-numb, .item-total {
+.item-prize, .item-numb {
     padding-top:80px !important;
-    font-size:18px;
+    font-size:16px;
+    color:#000;
+    font-family:Archivo Narrow, sans-serif;
+    opacity:0.6 !important;
+}
+
+.date {
+    padding-top:80px !important;
+    font-size:16px;
     color:#000;
     font-family:Archivo Narrow, sans-serif
 }
 
 
-.item-total {
-	font-size:18px;
+.item-total, .item-prize, .item-numb, .date, .first, .second, .third, .forth, .fifth, .six {
+    text-align:center;
 }
 
 a:hover {
 	opacity:1;
 }
 
+.six {
+    font-size:18px;
+    padding-top:79px;
+}
+
 .first {
-    width:20%;
+    width:15%;
 }
 
 .second {
     width:35%;
 }
 
-.forth  {
-    width:20%;
-}
 .third{
     width:15%;
 }
 
+.forth  {
+    width:10%;
+}
+
 .fifth {
     width:10%;
+}
+
+.six {
+    width:15%;
 }
 
 .table-responsive {

@@ -26,6 +26,7 @@ class Watches(models.Model):
         (u'M', u'Male'),
         (u'F', u'Female'),
     )
+    number=models.IntegerField(default=3)
     gender = models.CharField(max_length=2, choices=GENDER_CHOICES)
     image=models.ImageField(upload_to='images', null=True)
     def __str__(self):
@@ -61,6 +62,8 @@ class Purchases(models.Model):
     item=models.ForeignKey(Watches, null=True)
     #number=models.IntegerField(default=0)
     #prize=models.IntegerField(default=0)
+    total_prize=models.IntegerField(default=0)
+    number=models.IntegerField(default=0)
     date = models.DateField(default=datetime.date.today)
     #is_paid = models.BooleanField(default=False)
     def __str__(self):

@@ -19,12 +19,15 @@ $(document).ready(function(){
 
     function get_number() {
         res = ""
-        var items = $('.item-total')
+        var items = $('.select-numb')
         for (i = 0; i < items.length; ++i) {
-            cost = $(items[i]).text().trim().substring(1)
-            id = $(items[i]).attr('tot-id')
+            numb = $(items[i]).val()
+            var id = ($(items[i]).attr('name-id'))
             res = res + id + "$"
-            res = res + cost + "$"
+            res = res + numb;
+            if(i != items.length - 1) {
+                res = res + "$"
+            }
         }
         return res;
     }
@@ -107,15 +110,18 @@ $(document).ready(function(){
 
     $( ".paypal_img" ).click(function(){
         price = $('.total_cost').text().trim().substring(1);
-        item_price = get_number()
+        items_numbs = get_number()
         //alert(item_price)
-        alert(item_price)
         $.ajax({
             url: "/payment/cart/",
             type: "GET",
-            data: {"total_price": price, "item_price": item_price},
+            data: {"total_price": price, "items_numbs": items_numbs},
             success: function(data){
-                $('body').html(data);
+                if(data[0] == '?') {
+                    alert("We haven't got so many items of these watches:" +"\n" + data.substring(1))
+                } else {
+                    $('body').html(data);
+                }
                 //alert(data)
             }
         });

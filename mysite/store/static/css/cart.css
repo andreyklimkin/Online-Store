@@ -39,18 +39,18 @@ thead th{
 }
 
 .first {
-    width:25%;
+    width:20%;
 }
 
 .second {
-    width:35%;
+    width:30%;
 }
 
 .third, .fifth {
     width:15%;
 }
 
-.forth {
+.forth, .six{
     width:10%;
 }
 
@@ -109,7 +109,18 @@ th.order {
     padding-top:80px !important;
     font-size:18px;
     color:#666;
+    font-family:Archivo Narrow, sans-serif;
+    text-align:center;
+}
+
+.available {
+    text-align:center;
+    padding-top:80px !important;
+    font-size:18px;
+    color:rgb(180, 0, 0);
+    opacity:0.8;
     font-family:Archivo Narrow, sans-serif
+
 }
 
 .item-mod {
